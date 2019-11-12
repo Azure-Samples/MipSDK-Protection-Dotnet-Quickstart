@@ -63,7 +63,7 @@ namespace mipsdk_dotnet_protection_quickstart
             try
             { 
                 // Create an auth context using the provided authority and token cache
-                AuthenticationContext authContext = new AuthenticationContext(authority, tokenCache);
+                AuthenticationContext authContext = new AuthenticationContext(authority, useAdrms == true ? false : true, tokenCache);
                                
                 // Attempt to acquire a token for the given resource, using the ApplicationId, redirectUri, and Identity
                 var result = authContext.AcquireTokenAsync(resource, appInfo.ApplicationId, new Uri(redirectUri), new PlatformParameters(PromptBehavior.Auto), new UserIdentifier(identity.Email, UserIdentifierType.RequiredDisplayableId)).Result;
