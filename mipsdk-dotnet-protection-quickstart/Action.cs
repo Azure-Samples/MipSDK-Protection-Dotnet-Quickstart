@@ -75,7 +75,7 @@ namespace mipsdk_dotnet_protection_quickstart
             return engine;
         }
 
-        public List<string> ListTemplates()
+        public List<TemplateDescriptor> ListTemplates()
         {
             return engine.GetTemplates();
         }
@@ -112,9 +112,16 @@ namespace mipsdk_dotnet_protection_quickstart
         public byte[] Unprotect(IProtectionHandler handler, byte[] data)
         {
             long buffersize = data.Length;
-            byte[] outputBuffer = new byte[buffersize];
+            byte[] clearBuffer = new byte[buffersize];
+            
+            var bytesDecrypted = handler.DecryptBuffer(0, data, clearBuffer, true);
+            
+            byte[] outputBuffer = new byte[bytesDecrypted];
+            for(int i = 0; i < bytesDecrypted; i++)
+            {
+                outputBuffer[i] = clearBuffer[i];
+            }
 
-            var bytesDecrypted = handler.DecryptBuffer(0, data, outputBuffer, true);
             return outputBuffer;
         }
 

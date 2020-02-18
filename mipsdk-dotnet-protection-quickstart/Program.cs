@@ -36,22 +36,22 @@ namespace mipsdk_dotnet_protection_quickstart
             
             for(int i = 0; i < templates.Count; i++)
             {
-                Console.WriteLine("{0}: {1}", i.ToString(), templates[i]);
+                Console.WriteLine("{0}: {1}", i.ToString(), templates[i].Name);
             }
 
             Console.WriteLine("");
             Console.WriteLine("Select a template: ");
             var selectedTemplate = Console.ReadLine();
-
-            var publishHandler = action.CreatePublishingHandler(selectedTemplate);
+            
+            var publishHandler = action.CreatePublishingHandler(templates[Convert.ToInt32(selectedTemplate)].Id);
 
             Console.WriteLine("Enter some string to protect: ");
             var userInputString = Console.ReadLine();
-            var userInputBytes = Encoding.ASCII.GetBytes(userInputString);
-
+            var userInputBytes = Encoding.UTF8.GetBytes(userInputString);
+            
             var encryptedBytes = action.Protect(publishHandler, userInputBytes);
             Console.WriteLine("");
-            Console.WriteLine(Encoding.ASCII.GetString(encryptedBytes));
+            Console.WriteLine(Encoding.UTF8.GetString(encryptedBytes));
 
             Console.WriteLine("");
 
@@ -61,7 +61,7 @@ namespace mipsdk_dotnet_protection_quickstart
 
             var decryptedBytes = action.Unprotect(consumeHandler, encryptedBytes);
 
-            Console.WriteLine("Decrypted content: {0}", Encoding.ASCII.GetString(decryptedBytes));
+            Console.WriteLine("Decrypted content: {0}", Encoding.UTF8.GetString(decryptedBytes));
 
             Console.WriteLine("Press a key to quit.");
             Console.ReadKey();
