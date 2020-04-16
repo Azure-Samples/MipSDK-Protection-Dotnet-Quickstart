@@ -47,7 +47,6 @@ namespace mipsdk_dotnet_protection_quickstart
             // Initialize ProtectionProfileSettings
             var profileSettings = new ProtectionProfileSettings(mipContext, 
                 CacheStorageType.OnDisk, 
-                authDelegate, 
                 new ConsentDelegateImplementation());
 
             // Use MIP.LoadProtectionProfileAsync() providing settings to create IProtectionProfile
@@ -65,7 +64,7 @@ namespace mipsdk_dotnet_protection_quickstart
                 profile = CreateProtectionProfile(appInfo, ref authDelegate);
             }
 
-            var engineSettings = new ProtectionEngineSettings("", "", "")
+            var engineSettings = new ProtectionEngineSettings(identity.Email, authDelegate, "", "")
             {
                 Identity = identity
             };
