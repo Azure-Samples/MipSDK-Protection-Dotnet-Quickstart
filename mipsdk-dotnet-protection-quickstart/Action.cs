@@ -97,6 +97,9 @@ namespace mipsdk_dotnet_protection_quickstart
         {
             PublishingLicenseInfo plInfo = PublishingLicenseInfo.GetPublishingLicenseInfo(serializedPublishingLicense);
             ConsumptionSettings consumptionSettings = new ConsumptionSettings(plInfo);
+            
+            // This is a new required field for tracking content for Track and Revoke. 
+            consumptionSettings.ContentName = "A few bytes.";            
             var protectionHandler = engine.CreateProtectionHandlerForConsumption(consumptionSettings);
             return protectionHandler;
         }
