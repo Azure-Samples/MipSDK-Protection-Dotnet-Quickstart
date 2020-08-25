@@ -111,30 +111,22 @@ namespace mipsdk_dotnet_protection_quickstart
                     .Build();
             else
             {
-                if (authority.ToLower().Contains("common"))
+                if (authority.ToLower().Contains("/common"))
                 {
-                    authority = authority.Remove(authority.Length - 6, 6);
+                    var authorityUri = new Uri(authority);
+                    authority = String.Format("https://{0}/{1}", authorityUri.Host, tenant);
                 }
                 _app = PublicClientApplicationBuilder.Create(appInfo.ApplicationId)
-                    .WithAuthority(authority + tenant)
+                    .WithAuthority(authority)
                     .WithDefaultRedirectUri()
                     .Build();
 
             }
             var accounts = (_app.GetAccountsAsync()).GetAwaiter().GetResult();
 
-            List<string> scopes = new List<string>();
-
-            if (resource.ToLower().Contains("aadrm"))
-            {
-                scopes = aadrmScopes;
-            }
-            else 
-            {
-                scopes = graphScope;
-            }
-            
-
+            // Append .default to the resource passed in to AcquireToken().
+            string[] scopes = new string[] { resource[resource.Length - 1].Equals('/') ? $"{resource}.default" : $"{resource}/.default" };
+                       
             try
             {
                 result = await _app.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
