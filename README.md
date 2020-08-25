@@ -60,12 +60,7 @@ The **Application registration** screen should now be displaying your new applic
 3. Select **Azure Rights Management Services**
 4. Select **Delegated permissions**
 5. Check **user_impersonation** and select **Add permissions** at the bottom of the screen.
-6. Select **Add a permission**
-7. Select **APIs my organization uses**
-8. In the search box, type **Microsoft Information Protection Sync Service** then select the service.
-9. Select **Delegated permissions**
-10. Check **UnifiedPolicy.User.Read** then select **Add permissions**
-11. In the **API permissions** menu, select **Grant admin consent for <TENANT NAME>** and confirm.
+6. In the **API permissions** menu, select **Grant admin consent for <TENANT NAME>** and confirm.
 
 ### Update Client ID, RedirectURI, and Application Name
 
