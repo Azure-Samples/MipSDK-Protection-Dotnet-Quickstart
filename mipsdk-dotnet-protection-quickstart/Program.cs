@@ -51,8 +51,8 @@ namespace mipsdk_dotnet_protection_quickstart
             
             var encryptedBytes = action.Protect(publishHandler, userInputBytes);
             Console.WriteLine("");
-            Console.WriteLine(Encoding.UTF8.GetString(encryptedBytes));
-
+            Console.WriteLine("Encrypted bytes (UTF8): {0}", Encoding.UTF8.GetString(encryptedBytes));
+            Console.WriteLine("Encrypted bytes (base64): {0}", Convert.ToBase64String(encryptedBytes));
             Console.WriteLine("");
 
             var serializedPublishingLicense = publishHandler.GetSerializedPublishingLicense();
