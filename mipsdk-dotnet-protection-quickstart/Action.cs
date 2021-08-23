@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace mipsdk_dotnet_protection_quickstart
 {
-    public class Action
+    public class Action : IDisposable
     {
         private AuthDelegateImplementation authDelegate;
         private ApplicationInfo appInfo;
@@ -19,7 +19,7 @@ namespace mipsdk_dotnet_protection_quickstart
         private IProtectionEngine engine;
         private MipContext mipContext;
 
-        public Action(ApplicationInfo appInfo)
+        public Action(ApplicationInfo appInfo) 
         {
             this.appInfo = appInfo;
 
@@ -28,6 +28,12 @@ namespace mipsdk_dotnet_protection_quickstart
 
             // Initialize SDK DLLs. If DLLs are missing or wrong type, this will throw an exception
             MIP.Initialize(MipComponent.Protection);
+
+            // Create MipConfiguration Object
+            MipConfiguration mipConfiguration = new MipConfiguration(appInfo, "mip_data", LogLevel.Trace, false);
+
+            // Create MipContext using MipConfiguration
+            mipContext = MIP.CreateMipContext(mipConfiguration);
 
             // This method in AuthDelegateImplementation triggers auth against Graph so that we can get the user ID.
             var id = authDelegate.GetUserIdentity();
@@ -39,11 +45,20 @@ namespace mipsdk_dotnet_protection_quickstart
             engine = CreateProtectionEngine(id);
         }
 
+        /// <summary>
+        /// Unload engine, null refs to engine and profile and release all MIP resources.
+        /// </summary>        
+        public void Dispose()
+        {            
+            //profile.UnloadEngineAsync(engine.Settings.EngineId).Wait();
+            engine.Dispose();
+            profile.Dispose();
+            mipContext.ShutDown();
+            mipContext.Dispose();
+        }
+
         private IProtectionProfile CreateProtectionProfile(ApplicationInfo appInfo, ref AuthDelegateImplementation authDelegate)
         {
-            // Initialize MipContext
-            mipContext = MIP.CreateMipContext(appInfo, "mip_data", LogLevel.Trace, null, null);
-
             // Initialize ProtectionProfileSettings
             var profileSettings = new ProtectionProfileSettings(mipContext, 
                 CacheStorageType.OnDisk, 
