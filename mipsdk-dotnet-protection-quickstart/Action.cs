@@ -110,7 +110,7 @@ namespace mipsdk_dotnet_protection_quickstart
         // Create a handler for consumption from the publishing license.
         public IProtectionHandler CreateConsumptionHandler(List<byte> serializedPublishingLicense)
         {
-            PublishingLicenseInfo plInfo = PublishingLicenseInfo.GetPublishingLicenseInfo(serializedPublishingLicense);
+            PublishingLicenseInfo plInfo = PublishingLicenseInfo.GetPublishingLicenseInfo(serializedPublishingLicense, mipContext);
 
             ConsumptionSettings consumptionSettings = new ConsumptionSettings(plInfo)
             {
