@@ -3,12 +3,13 @@ page_type: sample
 languages:
 - csharp
 products:
-- azure
+- m365
+- office-365
 description: "This sample application demonstrates using the Microsoft Information Protection SDK .NET wrapper to encrypt and decrypt strings using the Azure Information Protection service."
-urlFragment: MipSdk-Dotnet-Protection-Quickstart
+urlFragment: MipSDK-Protection-Dotnet-Quickstart
 ---
 
-# MipSdk-Dotnet-Protection-Quickstart
+# MipSDK-Protection-Dotnet-Quickstart
 
 This sample application demonstrates using the Microsoft Information Protection SDK .NET wrapper to encrypt and decrypt strings using the Azure Information Protection service.
 
