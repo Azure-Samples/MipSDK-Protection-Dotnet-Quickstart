@@ -29,7 +29,7 @@ This sample application illustrates using the MIP Protection API to list templat
 
 ### Prerequisites
 
-- Visual Studio 2015 or later with Visual C# development features installed
+- Visual Studio 2019 or later with Visual C# development features installed
 
 ### Sample Setup
 
